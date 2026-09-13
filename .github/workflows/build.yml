@@ -22,8 +22,10 @@ jobs:
         with:
           flutter-version: '3.24.0'
           channel: 'stable'
+          cache: true
 
       - run: flutter pub get
+
       - run: flutter build apk --release
 
       - name: Upload APK
@@ -38,3 +40,5 @@ jobs:
           tag_name: v1.0.${{ github.run_number }}
           name: TOLSS v1.0.${{ github.run_number }}
           files: build/app/outputs/flutter-apk/app-release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
